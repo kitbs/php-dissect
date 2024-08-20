@@ -66,4 +66,33 @@ abstract class Util
 
         return $lengthFunc($str, $position, $length, 'UTF-8');
     }
+
+    /**
+     * Gets the line number for a position.
+     *
+     * @param  string  $string  The full string to extract the line number from.
+     * @param  int  $position  The zero-based position from the start of the string to convert to the line number.
+     * @return int The line number.
+     */
+    public static function lineNumber(string $string, int $position): int
+    {
+        return substr_count($string, "\n", 0, $position) + 1;
+    }
+
+    /**
+     * Gets the column number for a position on a given line.
+     *
+     * @param  string  $string  The full string to extract the column number from.
+     * @param  int  $position  The zero-based position from the start of the string to convert to the column number.
+     * @param  int  $line  The line number that the column occurs on.
+     * @return int The column number on the given line.
+     */
+    public static function columnNumber(string $string, int $position, int $line = 1): int
+    {
+        if ($line > 1) {
+            return $position - strrpos(substr($string, 0, $position), "\n");
+        }
+
+        return $position + 1;
+    }
 }

@@ -13,16 +13,19 @@ class RecognitionException extends RuntimeException
 {
     protected int $sourceLine;
 
+    protected int $sourceColumn;
+
     /**
      * Constructor.
      *
      * @param  int  $line  The line in the source.
      */
-    public function __construct(int $line)
+    public function __construct(int $line, int $column)
     {
         $this->sourceLine = $line;
+        $this->sourceColumn = $column;
 
-        parent::__construct(sprintf('Cannot extract another token at line %d.', $line));
+        parent::__construct(sprintf('Cannot extract another token on line %d at column %d.', $line, $column));
     }
 
     /**
@@ -33,5 +36,15 @@ class RecognitionException extends RuntimeException
     public function getSourceLine(): int
     {
         return $this->sourceLine;
+    }
+
+    /**
+     * Returns the source column number where the exception occured.
+     *
+     * @return int The source column number.
+     */
+    public function getSourceColumn(): int
+    {
+        return $this->sourceColumn;
     }
 }

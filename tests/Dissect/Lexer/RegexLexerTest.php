@@ -31,7 +31,24 @@ class RegexLexerTest extends TestCase
     {
         $stream = $this->lexer->lex("5\n+\n\n5");
 
+        $this->assertEquals(1, $stream->get(0)->getLine());
+        $this->assertEquals(1, $stream->get(0)->getColumn());
         $this->assertEquals(2, $stream->get(1)->getLine());
+        $this->assertEquals(1, $stream->get(1)->getColumn());
         $this->assertEquals(4, $stream->get(2)->getLine());
+        $this->assertEquals(1, $stream->get(2)->getColumn());
+    }
+
+    #[Test]
+    public function itShouldTrackLineAndColumnNumbers()
+    {
+        $stream = $this->lexer->lex('5 + 5');
+
+        $this->assertEquals(1, $stream->get(0)->getLine());
+        $this->assertEquals(1, $stream->get(0)->getColumn());
+        $this->assertEquals(1, $stream->get(1)->getLine());
+        $this->assertEquals(3, $stream->get(1)->getColumn());
+        $this->assertEquals(1, $stream->get(2)->getLine());
+        $this->assertEquals(5, $stream->get(2)->getColumn());
     }
 }

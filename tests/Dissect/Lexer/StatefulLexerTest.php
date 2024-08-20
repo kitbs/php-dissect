@@ -34,14 +34,12 @@ class StatefulLexerTest extends TestCase
     #[Test]
     public function theStateMechanismShouldCorrectlyPushAndPopStatesFromTheStack()
     {
-        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $this->lexer->state('root')
             ->regex('WORD', '/[a-z]+/')
             ->regex('WS', "/[ \r\n\t]+/")
             ->token('"')->action('string')
             ->skip('WS');
 
-        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $this->lexer->state('string')
             ->regex('STRING_CONTENTS', '/(\\\\"|[^"])+/')
             ->token('"')->action(StatefulLexer::POP_STATE);

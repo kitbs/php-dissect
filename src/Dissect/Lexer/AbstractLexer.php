@@ -19,6 +19,8 @@ abstract class AbstractLexer implements Lexer
 {
     protected int $line = 1;
 
+    protected int $column = 1;
+
     /**
      * Returns the current line.
      *
@@ -27,6 +29,16 @@ abstract class AbstractLexer implements Lexer
     protected function getCurrentLine(): int
     {
         return $this->line;
+    }
+
+    /**
+     * Returns the current column.
+     *
+     * @return int The current column.
+     */
+    protected function getCurrentColumn(): int
+    {
+        return $this->column;
     }
 
     /**
@@ -76,17 +88,18 @@ abstract class AbstractLexer implements Lexer
 
             // update line + offset
             if ($position > 0) {
-                $this->line = substr_count($originalString, "\n", 0, $position) + 1;
+                $this->line = Util::lineNumber($originalString, $position);
+                $this->column = Util::columnNumber($originalString, $position, $this->line);
             }
 
             $string = Util::substring($string, $shift);
         }
 
         if ($position !== $originalLength) {
-            throw new RecognitionException($this->line);
+            throw new RecognitionException($this->line, $this->column);
         }
 
-        $tokens[] = new CommonToken(Parser::EOF_TOKEN_TYPE, '', $this->line);
+        $tokens[] = new CommonToken(Parser::EOF_TOKEN_TYPE, '', $this->line, $this->column);
 
         return new ArrayTokenStream($tokens);
     }

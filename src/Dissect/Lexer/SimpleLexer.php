@@ -93,7 +93,7 @@ class SimpleLexer extends AbstractLexer
         }
 
         if ($type !== null) {
-            return new CommonToken($type, $value, $this->getCurrentLine());
+            return new CommonToken($type, $value, $this->getCurrentLine(), $this->getCurrentColumn());
         }
 
         return null;

@@ -16,7 +16,7 @@ class StubLexer extends AbstractLexer
             return null;
         }
 
-        $token = new CommonToken($char, $char, $this->getCurrentLine());
+        $token = new CommonToken($char, $char, $this->getCurrentLine(), $this->getCurrentLine());
 
         return $token;
     }

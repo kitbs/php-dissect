@@ -29,4 +29,11 @@ interface Token
      * @return int The line.
      */
     public function getLine(): int;
+
+    /**
+     * Returns the column on which the token was found.
+     *
+     * @return int The column.
+     */
+    public function getColumn(): int;
 }

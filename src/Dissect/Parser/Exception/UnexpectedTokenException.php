@@ -13,7 +13,7 @@ use RuntimeException;
 class UnexpectedTokenException extends RuntimeException
 {
     const MESSAGE = <<<'EOT'
-Unexpected %s at line %d.
+Unexpected %s on line %d at column %d.
 
 Expected one of %s.
 EOT;
@@ -46,6 +46,7 @@ EOT;
             self::MESSAGE,
             $info,
             $token->getLine(),
+            $token->getColumn(),
             implode(', ', $expected)
         ));
     }

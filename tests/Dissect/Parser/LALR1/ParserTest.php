@@ -44,7 +44,7 @@ class ParserTest extends TestCase
             $this->assertEquals('INT', $e->getToken()->getType());
             $this->assertEquals(['$eof', '+', '-', '*', '/', '**', ')'], $e->getExpected());
             $this->assertEquals(<<<'EOT'
-Unexpected 3 (INT) at line 1.
+Unexpected 3 (INT) on line 1 at column 8.
 
 Expected one of $eof, +, -, *, /, **, ).
 EOT

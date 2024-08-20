@@ -68,7 +68,6 @@ EOT
         $output->writeln('');
 
         if (! class_exists($class)) {
-            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             $output->writeln([
                 $formatter->formatBlock(
                     sprintf('The class "%s" could not be found.', $class),
@@ -131,7 +130,6 @@ EOT
                 $output->writeln('<info>Parse table written</info>');
             }
         } catch (ConflictException $e) {
-            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             $output->writeln([
                 $formatter->formatBlock(
                     explode("\n", $e->getMessage()),
@@ -157,7 +155,6 @@ EOT
                 $state = (int) $input->getOption('state');
 
                 if (! $automaton->hasState($state)) {
-                    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
                     $output->writeln([
                         $formatter->formatBlock(
                             sprintf('The automaton has no state #%d', $state),
