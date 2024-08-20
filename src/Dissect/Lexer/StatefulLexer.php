@@ -39,9 +39,9 @@ class StatefulLexer extends AbstractLexer
      * @param string $type The token type.
      * @param string|null $value The value to be recognized.
      *
-     * @return StatefulLexer This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
-    public function token(string $type, string $value = null): StatefulLexer
+    public function token(string $type, string $value = null): static
     {
         if ($this->stateBeingBuilt === null) {
             throw new LogicException("Define a lexer state first.");
@@ -69,7 +69,7 @@ class StatefulLexer extends AbstractLexer
      *
      * @return SimpleLexer This instance for fluent interface.
      */
-    public function regex(string $type, string $regex): AbstractLexer
+    public function regex(string $type, string $regex): static
     {
         if ($this->stateBeingBuilt === null) {
             throw new LogicException("Define a lexer state first.");
@@ -90,9 +90,9 @@ class StatefulLexer extends AbstractLexer
      *
      * @param mixed $types Unlimited number of token types.
      *
-     * @return StatefulLexer This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
-    public function skip(mixed ...$types): StatefulLexer
+    public function skip(mixed ...$types): static
     {
         if ($this->stateBeingBuilt === null) {
             throw new LogicException("Define a lexer state first.");
@@ -108,9 +108,9 @@ class StatefulLexer extends AbstractLexer
      *
      * @param string $state The new state name.
      *
-     * @return StatefulLexer This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
-    public function state(string $state): StatefulLexer
+    public function state(string $state): static
     {
         $this->stateBeingBuilt = $state;
 
@@ -128,9 +128,9 @@ class StatefulLexer extends AbstractLexer
      *
      * @param string $state The name of the starting state.
      *
-     * @return StatefulLexer This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
-    public function start(string $state): StatefulLexer
+    public function start(string $state): static
     {
         $this->stateStack[] = $state;
 
@@ -142,9 +142,9 @@ class StatefulLexer extends AbstractLexer
      *
      * @param mixed $action The action to take.
      *
-     * @return StatefulLexer This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
-    public function action(mixed $action): StatefulLexer
+    public function action(mixed $action): static
     {
         if ($this->stateBeingBuilt === null || $this->typeBeingBuilt === null) {
             throw new LogicException("Define a lexer state and type first.");

@@ -4,6 +4,7 @@ namespace Dissect\Lexer;
 
 use Dissect\Lexer\Exception\RecognitionException;
 use Dissect\Lexer\TokenStream\ArrayTokenStream;
+use Dissect\Lexer\TokenStream\TokenStream;
 use Dissect\Parser\Parser;
 use Dissect\Util\Util;
 
@@ -53,7 +54,7 @@ abstract class AbstractLexer implements Lexer
     /**
      * {@inheritDoc}
      */
-    public function lex(string $string): TokenStream\TokenStream|ArrayTokenStream
+    public function lex(string $string): TokenStream
     {
         // normalize line endings
         $string = strtr($string, ["\r\n" => "\n", "\r" => "\n"]);

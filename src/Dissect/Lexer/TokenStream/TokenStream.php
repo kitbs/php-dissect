@@ -58,7 +58,7 @@ interface TokenStream extends Countable, IteratorAggregate
      *
      * @throws OutOfBoundsException If $n is out of range.
      */
-    public function move(int $n);
+    public function move(int $n): void;
 
     /**
      * Moves the cursor by $n, relative to the current position.
@@ -67,12 +67,12 @@ interface TokenStream extends Countable, IteratorAggregate
      *
      * @throws OutOfBoundsException If current position + $n is out of range.
      */
-    public function seek(int $n);
+    public function seek(int $n): void;
 
     /**
      * Moves the cursor to the next token.
      *
      * @throws OutOfBoundsException If at the end of the stream.
      */
-    public function next();
+    public function next(): void;
 }
