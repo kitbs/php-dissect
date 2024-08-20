@@ -12,7 +12,7 @@ class RegexLexerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->lexer = new StubRegexLexer();
+        $this->lexer = new StubRegexLexer;
     }
 
     #[Test]

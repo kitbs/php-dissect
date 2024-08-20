@@ -2,10 +2,10 @@
 
 namespace Dissect\Parser\LALR1\Analysis;
 
+use Dissect\Parser\Grammar;
 use Dissect\Parser\LALR1\Analysis\Exception\ReduceReduceConflictException;
 use Dissect\Parser\LALR1\Analysis\Exception\ShiftReduceConflictException;
 use Dissect\Parser\LALR1\Analysis\KernelSet\KernelSet;
-use Dissect\Parser\Grammar;
 use Dissect\Parser\Parser;
 use Dissect\Util\Util;
 use SplQueue;
@@ -21,14 +21,13 @@ class Analyzer
     /**
      * Performs a grammar analysis.
      *
-     * @param Grammar $grammar The grammar to analyse.
-     *
+     * @param  Grammar  $grammar  The grammar to analyse.
      * @return AnalysisResult The result of the analysis.
      */
     public function analyze(Grammar $grammar): AnalysisResult
     {
         $automaton = $this->buildAutomaton($grammar);
-        list($parseTable, $conflicts) = $this->buildParseTable($automaton, $grammar);
+        [$parseTable, $conflicts] = $this->buildParseTable($automaton, $grammar);
 
         return new AnalysisResult($parseTable, $automaton, $conflicts);
     }
@@ -36,20 +35,19 @@ class Analyzer
     /**
      * Builds the handle-finding FSA from the grammar.
      *
-     * @param Grammar $grammar The grammar.
-     *
+     * @param  Grammar  $grammar  The grammar.
      * @return Automaton The resulting automaton.
      */
     protected function buildAutomaton(Grammar $grammar): Automaton
     {
         // the eventual automaton
-        $automaton = new Automaton();
+        $automaton = new Automaton;
 
         // the queue of states that need processing
-        $queue = new SplQueue();
+        $queue = new SplQueue;
 
         // the BST for state kernels
-        $kernelSet = new KernelSet();
+        $kernelSet = new KernelSet;
 
         // rules grouped by their name
         $groupedRules = $grammar->getGroupedRules();
@@ -77,7 +75,7 @@ class Analyzer
         $queue->enqueue($state);
         $automaton->addState($state);
 
-        while (!$queue->isEmpty()) {
+        while (! $queue->isEmpty()) {
             $state = $queue->dequeue();
 
             // items of this state are grouped by
@@ -91,7 +89,7 @@ class Analyzer
             for ($x = 0; $x < count($currentItems); $x++) {
                 $item = $currentItems[$x];
 
-                if (!$item->isReduceItem()) {
+                if (! $item->isReduceItem()) {
                     $component = $item->getActiveComponent();
                     $groupedItems[$component][] = $item;
 
@@ -103,7 +101,7 @@ class Analyzer
                         $cs = $item->getUnrecognizedComponents();
 
                         foreach ($cs as $i => $c) {
-                            if (!$grammar->hasNonterminal($c)) {
+                            if (! $grammar->hasNonterminal($c)) {
                                 // if terminal, add it and break the loop
                                 $lookahead = Util::union($lookahead, [$c]);
 
@@ -112,7 +110,7 @@ class Analyzer
                                 // if nonterminal
                                 $new = $firstSets[$c];
 
-                                if (!in_array(Grammar::EPSILON, $new)) {
+                                if (! in_array(Grammar::EPSILON, $new)) {
                                     // if the component doesn't derive
                                     // epsilon, merge FIRST sets and break
                                     $lookahead = Util::union($lookahead, $new);
@@ -152,7 +150,7 @@ class Analyzer
                         }
 
                         foreach ($groupedRules[$component] as $rule) {
-                            if (!in_array($component, $added)) {
+                            if (! in_array($component, $added)) {
                                 // if $component hasn't yet been expaned,
                                 // create new items for it
                                 $newItem = new Item($rule, 0);
@@ -240,8 +238,6 @@ class Analyzer
     /**
      * Encodes the handle-finding FSA as a LR parse table.
      *
-     * @param Automaton $automaton
-     * @param Grammar $grammar
      *
      * @return array The parse table.
      */
@@ -259,7 +255,7 @@ class Analyzer
 
         foreach ($automaton->getTransitionTable() as $num => $transitions) {
             foreach ($transitions as $trigger => $destination) {
-                if (!$grammar->hasNonterminal($trigger)) {
+                if (! $grammar->hasNonterminal($trigger)) {
                     // terminal implies shift
                     $table['action'][$num][$trigger] = $destination;
                 } else {
@@ -270,7 +266,7 @@ class Analyzer
         }
 
         foreach ($automaton->getStates() as $num => $state) {
-            if (!isset($table['action'][$num])) {
+            if (! isset($table['action'][$num])) {
                 $table['action'][$num] = [];
             }
 
@@ -432,6 +428,7 @@ class Analyzer
                                         ];
 
                                     }
+
                                     continue;
                                 }
 
@@ -458,8 +455,7 @@ class Analyzer
     /**
      * Calculates the FIRST sets of all nonterminals.
      *
-     * @param array $rules The rules grouped by the LHS.
-     *
+     * @param  array  $rules  The rules grouped by the LHS.
      * @return array Calculated FIRST sets.
      */
     protected function calculateFirstSets(array $rules): array
@@ -488,7 +484,7 @@ class Analyzer
                                 // this rule's first set
                                 $x = $firstSets[$component];
 
-                                if (!in_array(Grammar::EPSILON, $x)) {
+                                if (! in_array(Grammar::EPSILON, $x)) {
                                     // if the component doesn't derive
                                     // epsilon, merge the first sets and
                                     // we're done

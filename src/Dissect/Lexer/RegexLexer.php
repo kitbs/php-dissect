@@ -23,9 +23,9 @@ abstract class RegexLexer implements Lexer
     {
         static $regex;
 
-        if (!isset($regex)) {
-            $regex = '/(' . implode(')|(', $this->getCatchablePatterns()) . ')|'
-                . implode('|', $this->getNonCatchablePatterns()) . '/i';
+        if (! isset($regex)) {
+            $regex = '/('.implode(')|(', $this->getCatchablePatterns()).')|'
+                .implode('|', $this->getNonCatchablePatterns()).'/i';
         }
 
         $string = strtr($string, ["\r\n" => "\n", "\r" => "\n"]);
@@ -37,7 +37,7 @@ abstract class RegexLexer implements Lexer
         $oldPosition = 0;
 
         foreach ($matches as $match) {
-            list ($value, $position) = $match;
+            [$value, $position] = $match;
 
             $type = $this->getType($value);
 
@@ -57,22 +57,17 @@ abstract class RegexLexer implements Lexer
 
     /**
      * The patterns corresponding to tokens.
-     *
-     * @return array
      */
     abstract protected function getCatchablePatterns(): array;
 
     /**
      * The patterns corresponding to tokens to be skipped.
-     *
-     * @return array
      */
     abstract protected function getNonCatchablePatterns(): array;
 
     /**
      * Retrieves the token type.
      *
-     * @param string $value
      *
      * @return string $type
      */

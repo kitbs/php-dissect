@@ -38,7 +38,7 @@ class Grammar
     /**
      * @var string[]
      */
-    private array $nonterminals = [];
+    protected array $nonterminals = [];
 
     protected ?Rule $currentRule = null;
 
@@ -111,8 +111,7 @@ class Grammar
     /**
      * Defines an alternative for a grammar rule.
      *
-     * @param string ...$components The components of the rule.
-     *
+     * @param  string  ...$components  The components of the rule.
      * @return static This instance.
      */
     public function is(string ...$components): static
@@ -140,8 +139,7 @@ class Grammar
     /**
      * Sets the callback for the current rule.
      *
-     * @param callable $callback The callback.
-     *
+     * @param  callable  $callback  The callback.
      * @return static This instance.
      */
     public function call(callable $callback): static
@@ -195,7 +193,7 @@ class Grammar
     /**
      * Sets a start rule for this grammar.
      *
-     * @param string $name The name of the start rule.
+     * @param  string  $name  The name of the start rule.
      */
     public function start(string $name): void
     {
@@ -209,8 +207,8 @@ class Grammar
      */
     public function getStartRule(): Rule
     {
-        if (!isset($this->rules[0])) {
-            throw new LogicException("No start rule specified.");
+        if (! isset($this->rules[0])) {
+            throw new LogicException('No start rule specified.');
         }
 
         return $this->rules[0];
@@ -219,7 +217,7 @@ class Grammar
     /**
      * Sets the mode of conflict resolution.
      *
-     * @param int $mode The bitmask for the mode.
+     * @param  int  $mode  The bitmask for the mode.
      */
     public function resolve(int $mode): void
     {
@@ -239,9 +237,7 @@ class Grammar
     /**
      * Does a nonterminal $name exist in the grammar?
      *
-     * @param string $name The name of the nonterminal.
-     *
-     * @return boolean
+     * @param  string  $name  The name of the nonterminal.
      */
     public function hasNonterminal(string $name): bool
     {
@@ -251,8 +247,7 @@ class Grammar
     /**
      * Defines a group of operators.
      *
-     * @param string ...$ops Any number of tokens that serve as the operators.
-     *
+     * @param  string  ...$ops  Any number of tokens that serve as the operators.
      * @return static This instance for fluent interface.
      */
     public function operators(string ...$ops): static
@@ -304,13 +299,12 @@ class Grammar
     /**
      * Explicitly sets the associatity of the current group of operators.
      *
-     * @param int $a One of Grammar::LEFT, Grammar::RIGHT, Grammar::NONASSOC
-     *
+     * @param  int  $a  One of Grammar::LEFT, Grammar::RIGHT, Grammar::NONASSOC
      * @return static This instance for fluent interface.
      */
     public function assoc(int $a): static
     {
-        if (!$this->currentOperators) {
+        if (! $this->currentOperators) {
             throw new LogicException('Define a group of operators first.');
         }
 
@@ -326,14 +320,13 @@ class Grammar
      * If no group of operators is being specified, sets the precedence
      * of the currently described rule.
      *
-     * @param int $i The precedence as an integer.
-     *
+     * @param  int  $i  The precedence as an integer.
      * @return static This instance for fluent interface.
      */
     public function prec(int $i): static
     {
-        if (!$this->currentOperators) {
-            if (!$this->currentRule) {
+        if (! $this->currentOperators) {
+            if (! $this->currentRule) {
                 throw new LogicException('Define a group of operators or a rule first.');
             } else {
                 $this->currentRule->setPrecedence($i);
@@ -350,9 +343,7 @@ class Grammar
     /**
      * Is the passed token an operator?
      *
-     * @param string $token The token type.
-     *
-     * @return boolean
+     * @param  string  $token  The token type.
      */
     public function hasOperator(string $token): bool
     {

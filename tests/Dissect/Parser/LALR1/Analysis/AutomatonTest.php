@@ -11,7 +11,7 @@ class AutomatonTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->automaton = new Automaton();
+        $this->automaton = new Automaton;
         $this->automaton->addState(new State(0, []));
         $this->automaton->addState(new State(1, []));
     }

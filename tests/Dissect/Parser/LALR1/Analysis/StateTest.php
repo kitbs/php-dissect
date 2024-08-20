@@ -12,7 +12,7 @@ class StateTest extends TestCase
     public function stateShouldKeepItemsByRuleNumberAndPosition()
     {
         $item1 = new Item(new Rule(1, 'E', ['E', '+', 'T']), 0);
-        $state = new State(0, array($item1));
+        $state = new State(0, [$item1]);
 
         $this->assertSame($item1, $state->get(1, 0));
 

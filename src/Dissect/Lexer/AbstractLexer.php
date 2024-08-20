@@ -17,10 +17,7 @@ use Dissect\Util\Util;
  */
 abstract class AbstractLexer implements Lexer
 {
-    /**
-     * @var int
-     */
-    private int $line = 1;
+    protected int $line = 1;
 
     /**
      * Returns the current line.
@@ -36,8 +33,7 @@ abstract class AbstractLexer implements Lexer
      * Attempts to extract another token from the string.
      * Returns the token on success or null on failure.
      *
-     * @param string $string The string to extract the token from.
-     *
+     * @param  string  $string  The string to extract the token from.
      * @return Token|null The extracted token or null.
      */
     abstract protected function extractToken(string $string): ?Token;
@@ -45,9 +41,8 @@ abstract class AbstractLexer implements Lexer
     /**
      * Should given token be skipped?
      *
-     * @param Token $token The token to evaluate.
-     *
-     * @return boolean Whether to skip the token.
+     * @param  Token  $token  The token to evaluate.
+     * @return bool Whether to skip the token.
      */
     abstract protected function shouldSkipToken(Token $token): bool;
 
@@ -71,7 +66,7 @@ abstract class AbstractLexer implements Lexer
                 break;
             }
 
-            if (!$this->shouldSkipToken($token)) {
+            if (! $this->shouldSkipToken($token)) {
                 $tokens[] = $token;
             }
 

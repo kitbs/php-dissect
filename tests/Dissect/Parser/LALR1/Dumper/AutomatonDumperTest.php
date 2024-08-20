@@ -12,8 +12,8 @@ class AutomatonDumperTest extends TestCase
 
     protected function setUp(): void
     {
-        $analyzer = new Analyzer();
-        $automaton = $analyzer->analyze(new ExampleGrammar())->getAutomaton();
+        $analyzer = new Analyzer;
+        $automaton = $analyzer->analyze(new ExampleGrammar)->getAutomaton();
         $this->dumper = new AutomatonDumper($automaton);
     }
 
@@ -21,7 +21,7 @@ class AutomatonDumperTest extends TestCase
     public function dumpDumpsTheEntireAutomaton()
     {
         $this->assertStringEqualsFile(
-            __DIR__ . '/res/graphviz/automaton.dot',
+            __DIR__.'/res/graphviz/automaton.dot',
             $this->dumper->dump()
         );
     }
@@ -30,7 +30,7 @@ class AutomatonDumperTest extends TestCase
     public function dumpStateDumpsOnlyTheSpecifiedStateAndTransitions()
     {
         $this->assertStringEqualsFile(
-            __DIR__ . '/res/graphviz/state.dot',
+            __DIR__.'/res/graphviz/state.dot',
             $this->dumper->dumpState(2)
         );
     }

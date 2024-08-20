@@ -18,8 +18,6 @@ class AutomatonDumper
 
     /**
      * Constructor.
-     *
-     * @param Automaton $automaton
      */
     public function __construct(Automaton $automaton)
     {
@@ -33,7 +31,7 @@ class AutomatonDumper
      */
     public function dump(): string
     {
-        $writer = new StringWriter();
+        $writer = new StringWriter;
 
         $this->writeHeader($writer);
         $writer->writeLine();
@@ -65,13 +63,12 @@ class AutomatonDumper
      * Dumps only the specified state + any relevant
      * transitions.
      *
-     * @param int $n The number of the state.
-     *
+     * @param  int  $n  The number of the state.
      * @return string The output in DOT format.
      */
     public function dumpState(int $n): string
     {
-        $writer = new StringWriter();
+        $writer = new StringWriter;
 
         $this->writeHeader($writer, $n);
         $writer->writeLine();
@@ -108,7 +105,7 @@ class AutomatonDumper
     {
         $writer->writeLine(sprintf(
             'digraph %s {',
-            $stateNumber ? 'State' . $stateNumber : 'Automaton'
+            $stateNumber ? 'State'.$stateNumber : 'Automaton'
         ));
 
         $writer->indent();
@@ -152,7 +149,7 @@ class AutomatonDumper
         if ($rule->getNumber() === 0) {
             $string = '';
         } else {
-            $string = sprintf("%s &rarr; ", $rule->getName());
+            $string = sprintf('%s &rarr; ', $rule->getName());
         }
 
         $string .= implode(' ', $components);

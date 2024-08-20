@@ -31,7 +31,8 @@
         "test-php-8.0": "phpunit --configuration phpunit-9.6.xml",
         "test-coverage": "phpunit --coverage-html tests/coverage",
         "test-coverage-php-8.0": "phpunit --configuration phpunit-9.6.xml --coverage-html tests/coverage",
-        "analyse": "vendor/bin/phpstan analyse"
+        "analyse": "vendor/bin/phpstan analyse",
+        "format": "vendor/bin/pint"
     },
     "require": {
         "php": ">=8.0"
@@ -39,7 +40,8 @@
     "require-dev": {
         "symfony/console": ">=6.0",
         "phpunit/phpunit": ">=9",
-        "phpstan/phpstan-phpunit": "^1.4"
+        "phpstan/phpstan-phpunit": "^1.4",
+        "laravel/pint": "^1.17"
     },
     "suggest": {
         "symfony/console": "for the command-line tool"

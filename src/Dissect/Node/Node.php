@@ -23,17 +23,15 @@ interface Node extends Countable, IteratorAggregate
     /**
      * Checks for existence of child node named $name.
      *
-     * @param string $name The name of the child node.
-     *
-     * @return boolean If the node exists.
+     * @param  string  $name  The name of the child node.
+     * @return bool If the node exists.
      */
     public function hasNode(string $name): bool;
 
     /**
      * Returns a child node specified by $name.
      *
-     * @param int|string $name The name of the node.
-     *
+     * @param  int|string  $name  The name of the node.
      * @return Node The child node specified by $name.
      *
      * @throws RuntimeException When no child node named $name exists.
@@ -43,15 +41,15 @@ interface Node extends Countable, IteratorAggregate
     /**
      * Sets a child node.
      *
-     * @param string $name The name.
-     * @param Node $child The new child node.
+     * @param  string  $name  The name.
+     * @param  Node  $child  The new child node.
      */
     public function setNode(string $name, Node $child);
 
     /**
      * Removes a child node by name.
      *
-     * @param string $name The name.
+     * @param  string  $name  The name.
      */
     public function removeNode(string $name);
 
@@ -66,15 +64,15 @@ interface Node extends Countable, IteratorAggregate
      * Determines whether this node has an attribute
      * under $key.
      *
-     * @param string $key The key.
-     * @return boolean Whether there's an attribute under $key.
+     * @param  string  $key  The key.
+     * @return bool Whether there's an attribute under $key.
      */
     public function hasAttribute(string $key): bool;
 
     /**
      * Gets an attribute by key.
      *
-     * @param string $key The key.
+     * @param  string  $key  The key.
      * @return mixed The attribute value.
      *
      * @throws RuntimeException When no attribute exists under $key.
@@ -84,15 +82,15 @@ interface Node extends Countable, IteratorAggregate
     /**
      * Sets an attribute by key.
      *
-     * @param string $key The key.
-     * @param mixed $value The new value.
+     * @param  string  $key  The key.
+     * @param  mixed  $value  The new value.
      */
     public function setAttribute(string $key, mixed $value);
 
     /**
      * Removes an attribute by key.
      *
-     * @param string $key The key.
+     * @param  string  $key  The key.
      */
     public function removeAttribute(string $key);
 }

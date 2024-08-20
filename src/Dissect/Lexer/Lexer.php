@@ -16,11 +16,10 @@ interface Lexer
     /**
      * Lexes the given string, returning a token stream.
      *
-     * @param string $string The string to lex.
+     * @param  string  $string  The string to lex.
+     * @return TokenStream The resulting token stream.
      *
      * @throws RecognitionException When unable to extract more tokens from the string.
-     *
-     * @return TokenStream The resulting token stream.
      */
     public function lex(string $string): TokenStream;
 }

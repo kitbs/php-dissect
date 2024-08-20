@@ -14,9 +14,6 @@ use Dissect\Util\Util;
  */
 class SimpleLexer extends AbstractLexer
 {
-    /**
-     * @var array
-     */
     protected array $skipTokens = [];
 
     /**
@@ -29,12 +26,11 @@ class SimpleLexer extends AbstractLexer
      * it assumes that the token type and recognized value are
      * identical.
      *
-     * @param string $type The token type.
-     * @param string|null $value The value to be recognized.
-     *
+     * @param  string  $type  The token type.
+     * @param  string|null  $value  The value to be recognized.
      * @return static This instance for fluent interface.
      */
-    public function token(string $type, string $value = null): static
+    public function token(string $type, ?string $value = null): static
     {
         if ($value) {
             $this->recognizers[$type] = new SimpleRecognizer($value);
@@ -48,9 +44,8 @@ class SimpleLexer extends AbstractLexer
     /**
      * Adds a new regex token definition.
      *
-     * @param string $type The token type.
-     * @param string $regex The regular expression used to match the token.
-     *
+     * @param  string  $type  The token type.
+     * @param  string  $regex  The regular expression used to match the token.
      * @return static This instance for fluent interface.
      */
     public function regex(string $type, string $regex): static
@@ -63,8 +58,7 @@ class SimpleLexer extends AbstractLexer
     /**
      * Marks the token types given as arguments to be skipped.
      *
-     * @param mixed $types Unlimited number of token types.
-     *
+     * @param  mixed  $types  Unlimited number of token types.
      * @return static This instance for fluent interface.
      */
     public function skip(mixed ...$types): static

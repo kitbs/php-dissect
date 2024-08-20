@@ -16,7 +16,7 @@ class ReduceReduceConflictException extends ConflictException
     /**
      * The exception message template.
      */
-    const MESSAGE = <<<EOT
+    const MESSAGE = <<<'EOT'
 The grammar exhibits a reduce/reduce conflict on rules:
 
   %d. %s -> %s
@@ -28,29 +28,20 @@ vs:
 (on lookahead "%s" in state %d). Restructure your grammar or choose a conflict resolution mode.
 EOT;
 
-    /**
-     * @var Rule
-     */
     protected Rule $firstRule;
 
-    /**
-     * @var Rule
-     */
     protected Rule $secondRule;
 
-    /**
-     * @var string
-     */
     protected string $lookahead;
 
     /**
      * Constructor.
      *
-     * @param int $state The number of the inadequate state.
-     * @param Rule $firstRule The first conflicting grammar rule.
-     * @param Rule $secondRule The second conflicting grammar rule.
-     * @param string $lookahead The conflicting lookahead.
-     * @param Automaton $automaton The faulty automaton.
+     * @param  int  $state  The number of the inadequate state.
+     * @param  Rule  $firstRule  The first conflicting grammar rule.
+     * @param  Rule  $secondRule  The second conflicting grammar rule.
+     * @param  string  $lookahead  The conflicting lookahead.
+     * @param  Automaton  $automaton  The faulty automaton.
      */
     public function __construct(int $state, Rule $firstRule, Rule $secondRule, string $lookahead, Automaton $automaton)
     {

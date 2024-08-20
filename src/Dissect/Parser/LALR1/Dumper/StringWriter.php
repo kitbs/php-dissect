@@ -10,12 +10,13 @@ namespace Dissect\Parser\LALR1\Dumper;
 class StringWriter
 {
     protected int $indent = 0;
+
     protected string $string = '';
 
     /**
      * Appends the given string.
      *
-     * @param string $string The string to write.
+     * @param  string  $string  The string to write.
      */
     public function write(string $string): void
     {
@@ -57,9 +58,9 @@ class StringWriter
      * (like vim) and doesn't append any
      * indentation.
      *
-     * @param string|null $string The string to write.
+     * @param  string|null  $string  The string to write.
      */
-    public function writeLine(string $string = null): void
+    public function writeLine(?string $string = null): void
     {
         if ($string) {
             $this->write(sprintf(

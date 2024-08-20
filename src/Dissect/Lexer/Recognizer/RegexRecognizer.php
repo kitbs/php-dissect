@@ -15,7 +15,7 @@ class RegexRecognizer implements Recognizer
     /**
      * Constructor.
      *
-     * @param string $regex The regex to use in the match.
+     * @param  string  $regex  The regex to use in the match.
      */
     public function __construct(string $regex)
     {

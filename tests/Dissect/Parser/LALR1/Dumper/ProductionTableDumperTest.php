@@ -11,13 +11,13 @@ class ProductionTableDumperTest extends TestCase
     #[Test]
     public function theWrittenTableShouldBeAsCompactAsPossible()
     {
-        $grammar = new ExampleGrammar();
-        $analyzer = new Analyzer();
+        $grammar = new ExampleGrammar;
+        $analyzer = new Analyzer;
         $table = $analyzer->analyze($grammar)->getParseTable();
 
-        $dumper = new ProductionTableDumper();
+        $dumper = new ProductionTableDumper;
         $dumped = $dumper->dump($table);
 
-        $this->assertStringEqualsFile(__DIR__ . '/res/table/production.php', $dumped);
+        $this->assertStringEqualsFile(__DIR__.'/res/table/production.php', $dumped);
     }
 }

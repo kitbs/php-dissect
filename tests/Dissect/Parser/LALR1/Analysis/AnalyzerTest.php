@@ -2,8 +2,8 @@
 
 namespace Dissect\Parser\LALR1\Analysis;
 
-use Dissect\Parser\LALR1\Analysis\Exception\ReduceReduceConflictException;
 use Dissect\Parser\Grammar;
+use Dissect\Parser\LALR1\Analysis\Exception\ReduceReduceConflictException;
 use Dissect\Parser\Parser;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +15,7 @@ class AnalyzerTest extends TestCase
     #[Test]
     public function automatonShouldBeCorrectlyBuilt()
     {
-        $grammar = new Grammar();
+        $grammar = new Grammar;
 
         $grammar('S')
             ->is('a', 'S', 'b')
@@ -36,7 +36,7 @@ class AnalyzerTest extends TestCase
     #[Test]
     public function lookaheadShouldBeCorrectlyPumped()
     {
-        $grammar = new Grammar();
+        $grammar = new Grammar;
 
         $grammar('S')
             ->is('A', 'B', 'C', 'D');
@@ -58,32 +58,32 @@ class AnalyzerTest extends TestCase
         $automaton = $this->getAnalysisResult($grammar)->getAutomaton();
 
         $this->assertEquals(
-            array(Parser::EOF_TOKEN_TYPE),
+            [Parser::EOF_TOKEN_TYPE],
             $automaton->getState(1)->get(0, 1)->getLookahead()
         );
 
         $this->assertEquals(
-            array('b'),
+            ['b'],
             $automaton->getState(3)->get(2, 1)->getLookahead()
         );
 
         $this->assertEquals(
-            array('d'),
+            ['d'],
             $automaton->getState(4)->get(4, 0)->getLookahead()
         );
 
         $this->assertEquals(
-            array('d'),
+            ['d'],
             $automaton->getState(5)->get(3, 1)->getLookahead()
         );
 
         $this->assertEquals(
-            array(Parser::EOF_TOKEN_TYPE),
+            [Parser::EOF_TOKEN_TYPE],
             $automaton->getState(7)->get(1, 4)->getLookahead()
         );
 
         $this->assertEquals(
-            array(Parser::EOF_TOKEN_TYPE),
+            [Parser::EOF_TOKEN_TYPE],
             $automaton->getState(8)->get(5, 1)->getLookahead()
         );
     }
@@ -91,7 +91,7 @@ class AnalyzerTest extends TestCase
     #[Test]
     public function parseTableShouldBeCorrectlyBuilt()
     {
-        $grammar = new Grammar();
+        $grammar = new Grammar;
 
         $grammar('S')
             ->is('a', 'S', 'b')
@@ -130,7 +130,7 @@ class AnalyzerTest extends TestCase
     #[Test]
     public function unexpectedConflictsShouldThrowAnException()
     {
-        $grammar = new Grammar();
+        $grammar = new Grammar;
 
         $grammar('S')
             ->is('a', 'b', 'C', 'd')
@@ -147,7 +147,7 @@ class AnalyzerTest extends TestCase
         try {
             $this->getAnalysisResult($grammar);
             $this->fail('Expected an exception warning of a reduce/reduce conflict.');
-        } catch(ReduceReduceConflictException $e) {
+        } catch (ReduceReduceConflictException $e) {
             $this->assertEquals(3, $e->getStateNumber());
             $this->assertEquals('d', $e->getLookahead());
             $this->assertEquals(3, $e->getFirstRule()->getNumber());
@@ -158,7 +158,7 @@ class AnalyzerTest extends TestCase
     #[Test]
     public function expectedConflictsShouldBeRecorded()
     {
-        $grammar = new Grammar();
+        $grammar = new Grammar;
 
         $grammar('S')
             ->is('S', 'S', 'S')
@@ -210,7 +210,7 @@ class AnalyzerTest extends TestCase
     protected function getAnalyzer(): Analyzer
     {
         if ($this->analyzer === null) {
-            $this->analyzer = new Analyzer();
+            $this->analyzer = new Analyzer;
         }
 
         return $this->analyzer;

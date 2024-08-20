@@ -23,8 +23,6 @@ class ConflictException extends LogicException
 
     /**
      * Returns the number of the inadequate state.
-     *
-     * @return int
      */
     public function getStateNumber(): int
     {
@@ -33,8 +31,6 @@ class ConflictException extends LogicException
 
     /**
      * Returns the faulty automaton.
-     *
-     * @return Automaton
      */
     public function getAutomaton(): Automaton
     {

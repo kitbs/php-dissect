@@ -32,29 +32,27 @@ interface TokenStream extends Countable, IteratorAggregate
      * Returns a look-ahead token. Negative values are allowed
      * and serve as look-behind.
      *
-     * @param int $n The look-ahead.
+     * @param  int  $n  The look-ahead.
+     * @return Token The lookahead token.
      *
      * @throws OutOfBoundsException If current position + $n is out of range.
-     *
-     * @return Token The lookahead token.
      */
     public function lookAhead(int $n): Token;
 
     /**
      * Returns the token at absolute position $n.
      *
-     * @param int $n The position.
+     * @param  int  $n  The position.
+     * @return Token The token at position $n.
      *
      * @throws OutOfBoundsException If $n is out of range.
-     *
-     * @return Token The token at position $n.
      */
     public function get(int $n): Token;
 
     /**
      * Moves the cursor to the absolute position $n.
      *
-     * @param int $n The position.
+     * @param  int  $n  The position.
      *
      * @throws OutOfBoundsException If $n is out of range.
      */
@@ -63,7 +61,7 @@ interface TokenStream extends Countable, IteratorAggregate
     /**
      * Moves the cursor by $n, relative to the current position.
      *
-     * @param int $n The seek.
+     * @param  int  $n  The seek.
      *
      * @throws OutOfBoundsException If current position + $n is out of range.
      */

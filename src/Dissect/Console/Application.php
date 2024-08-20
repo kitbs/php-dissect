@@ -30,7 +30,7 @@ class Application extends BaseApplication
     protected function getDefaultCommands(): array
     {
         $default = parent::getDefaultCommands();
-        $default[] = new Command\DissectCommand();
+        $default[] = new Command\DissectCommand;
 
         return $default;
     }
@@ -38,7 +38,7 @@ class Application extends BaseApplication
     public function getDefinition(): InputDefinition
     {
         return new InputDefinition([
-            new InputOption('--help',    '-h', InputOption::VALUE_NONE, 'Display this help message.'),
+            new InputOption('--help', '-h', InputOption::VALUE_NONE, 'Display this help message.'),
             new InputOption('--verbose', '-v', InputOption::VALUE_NONE, 'Increase verbosity of exceptions.'),
             new InputOption('--version', '-V', InputOption::VALUE_NONE, 'Display version information.'),
         ]);

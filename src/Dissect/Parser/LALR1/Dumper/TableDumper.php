@@ -12,8 +12,7 @@ interface TableDumper
     /**
      * Dumps the parse table.
      *
-     * @param array $table The parse table.
-     *
+     * @param  array  $table  The parse table.
      * @return string The resulting string representation of the table.
      */
     public function dump(array $table): string;

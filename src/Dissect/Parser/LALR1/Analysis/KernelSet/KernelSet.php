@@ -11,6 +11,7 @@ namespace Dissect\Parser\LALR1\Analysis\KernelSet;
 class KernelSet
 {
     protected int $nextNumber = 0;
+
     protected ?Node $root = null;
 
     /**
@@ -19,8 +20,7 @@ class KernelSet
      * exists. Otherwise, returns the number of the
      * existing state.
      *
-     * @param array $kernel The state kernel.
-     *
+     * @param  array  $kernel  The state kernel.
      * @return int The state number.
      */
     public function insert(array $kernel): int
@@ -61,14 +61,13 @@ class KernelSet
     /**
      * Hashes a state kernel using a pairing function.
      *
-     * @param array $kernel The kernel.
-     *
+     * @param  array  $kernel  The kernel.
      * @return array The hashed kernel.
      */
     public static function hashKernel(array $kernel): array
     {
         $kernel = array_map(function ($tuple) {
-            list ($car, $cdr) = $tuple;
+            [$car, $cdr] = $tuple;
 
             return ($car + $cdr) * ($car + $cdr + 1) / 2 + $cdr;
         }, $kernel);

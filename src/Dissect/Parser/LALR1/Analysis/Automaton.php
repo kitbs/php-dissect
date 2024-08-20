@@ -10,20 +10,14 @@ namespace Dissect\Parser\LALR1\Analysis;
  */
 class Automaton
 {
-    /**
-     * @var array
-     */
     protected array $states = [];
 
-    /**
-     * @var array
-     */
     protected array $transitionTable = [];
 
     /**
      * Adds a new automaton state.
      *
-     * @param State $state The new state.
+     * @param  State  $state  The new state.
      */
     public function addState(State $state): void
     {
@@ -33,9 +27,9 @@ class Automaton
     /**
      * Adds a new transition in the FSA.
      *
-     * @param int $origin The number of the origin state.
-     * @param string $label The symbol that triggers this transition.
-     * @param int $dest The destination state number.
+     * @param  int  $origin  The number of the origin state.
+     * @param  string  $label  The symbol that triggers this transition.
+     * @param  int  $dest  The destination state number.
      */
     public function addTransition(int $origin, string $label, int $dest): void
     {
@@ -45,8 +39,7 @@ class Automaton
     /**
      * Returns a state by its number.
      *
-     * @param int $number The state number.
-     *
+     * @param  int  $number  The state number.
      * @return State The requested state.
      */
     public function getState(int $number): State
@@ -56,10 +49,6 @@ class Automaton
 
     /**
      * Does this automaton have a state identified by $number?
-     *
-     * @param $number
-     *
-     * @return boolean
      */
     public function hasState($number): bool
     {

@@ -13,30 +13,21 @@ use Dissect\Parser\Grammar;
  */
 class DebugTableDumper implements TableDumper
 {
-    /**
-     * @var Grammar
-     */
     protected Grammar $grammar;
 
-    /**
-     * @var StringWriter
-     */
     protected StringWriter $writer;
 
-    /**
-     * @var boolean
-     */
     protected bool $written = false;
 
     /**
      * Constructor.
      *
-     * @param Grammar $grammar The grammar of this parse table.
+     * @param  Grammar  $grammar  The grammar of this parse table.
      */
     public function __construct(Grammar $grammar)
     {
         $this->grammar = $grammar;
-        $this->writer = new StringWriter();
+        $this->writer = new StringWriter;
     }
 
     /**
@@ -50,7 +41,7 @@ class DebugTableDumper implements TableDumper
 
         // the grammar dictates the parse table,
         // therefore the result is always the same
-        if (!$this->written) {
+        if (! $this->written) {
             $this->writeHeader();
             $this->writer->indent();
 
@@ -88,7 +79,7 @@ class DebugTableDumper implements TableDumper
 
     protected function writeState($n, array $state)
     {
-        $this->writer->writeLine($n . ' => [');
+        $this->writer->writeLine($n.' => [');
         $this->writer->indent();
 
         foreach ($state as $trigger => $action) {
@@ -147,7 +138,7 @@ class DebugTableDumper implements TableDumper
 
     protected function writeGoto($n, array $map)
     {
-        $this->writer->writeLine($n . ' => [');
+        $this->writer->writeLine($n.' => [');
         $this->writer->indent();
 
         foreach ($map as $sym => $dest) {

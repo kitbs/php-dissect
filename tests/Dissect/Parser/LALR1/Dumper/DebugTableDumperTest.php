@@ -11,13 +11,13 @@ class DebugTableDumperTest extends TestCase
     #[Test]
     public function itDumpsAHumanReadableParseTableWithExplainingComments()
     {
-        $grammar = new ExampleGrammar();
-        $analyzer = new Analyzer();
+        $grammar = new ExampleGrammar;
+        $analyzer = new Analyzer;
         $result = $analyzer->analyze($grammar);
 
         $dumper = new DebugTableDumper($grammar);
         $dumped = $dumper->dump($result->getParseTable());
 
-        $this->assertStringEqualsFile(__DIR__ . '/res/table/debug.php', $dumped);
+        $this->assertStringEqualsFile(__DIR__.'/res/table/debug.php', $dumped);
     }
 }

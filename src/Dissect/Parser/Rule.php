@@ -28,9 +28,9 @@ class Rule
     /**
      * Constructor.
      *
-     * @param int $number The number of the rule in the grammar.
-     * @param string $name The name (lhs) of the rule ("A" in "A -> a b c")
-     * @param string[] $components The components of this rule.
+     * @param  int  $number  The number of the rule in the grammar.
+     * @param  string  $name  The name (lhs) of the rule ("A" in "A -> a b c")
+     * @param  string[]  $components  The components of this rule.
      */
     public function __construct(int $number, string $name, array $components)
     {
@@ -73,13 +73,12 @@ class Rule
      * Returns a component at index $index or null
      * if index is out of range.
      *
-     * @param int $index The index.
-     *
+     * @param  int  $index  The index.
      * @return ?string The component at index $index.
      */
     public function getComponent(int $index): ?string
     {
-        if (!isset($this->components[$index])) {
+        if (! isset($this->components[$index])) {
             return null;
         }
 
@@ -89,7 +88,7 @@ class Rule
     /**
      * Sets the callback (the semantic value) of the rule.
      *
-     * @param callable $callback The callback.
+     * @param  callable  $callback  The callback.
      */
     public function setCallback(callable $callback): void
     {

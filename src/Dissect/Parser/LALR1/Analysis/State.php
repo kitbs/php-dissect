@@ -9,26 +9,17 @@ namespace Dissect\Parser\LALR1\Analysis;
  */
 class State
 {
-    /**
-     * @var array
-     */
     protected array $items = [];
 
-    /**
-     * @var array
-     */
     protected array $itemMap = [];
 
-    /**
-     * @var int
-     */
     protected int $number;
 
     /**
      * Constructor.
      *
-     * @param int $number The number identifying this state.
-     * @param array $items The initial items of this state.
+     * @param  int  $number  The number identifying this state.
+     * @param  array  $items  The initial items of this state.
      */
     public function __construct(int $number, array $items)
     {
@@ -42,7 +33,7 @@ class State
     /**
      * Adds a new item to this state.
      *
-     * @param Item $item The new item.
+     * @param  Item  $item  The new item.
      */
     public function add(Item $item): void
     {
@@ -54,9 +45,8 @@ class State
     /**
      * Returns an item by its rule number and dot index.
      *
-     * @param int $ruleNumber The number of the rule of the desired item.
-     * @param int $dotIndex The dot index of the desired item.
-     *
+     * @param  int  $ruleNumber  The number of the rule of the desired item.
+     * @param  int  $dotIndex  The dot index of the desired item.
      * @return Item The item.
      */
     public function get(int $ruleNumber, int $dotIndex): Item
@@ -66,8 +56,6 @@ class State
 
     /**
      * Returns the number identifying this state.
-     *
-     * @return int
      */
     public function getNumber(): int
     {

@@ -16,13 +16,13 @@ class RecognitionException extends RuntimeException
     /**
      * Constructor.
      *
-     * @param int $line The line in the source.
+     * @param  int  $line  The line in the source.
      */
     public function __construct(int $line)
     {
         $this->sourceLine = $line;
 
-        parent::__construct(sprintf("Cannot extract another token at line %d.", $line));
+        parent::__construct(sprintf('Cannot extract another token at line %d.', $line));
     }
 
     /**

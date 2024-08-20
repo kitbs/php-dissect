@@ -1,0 +1,5 @@
+{
+    "exclude": [
+        "tests/Dissect/Parser/LALR1/Dumper/res"
+    ]
+}

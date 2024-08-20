@@ -16,7 +16,7 @@ class ShiftReduceConflictException extends ConflictException
     /**
      * The exception message template.
      */
-    const MESSAGE = <<<EOT
+    const MESSAGE = <<<'EOT'
 The grammar exhibits a shift/reduce conflict on rule:
 
   %d. %s -> %s
@@ -24,22 +24,16 @@ The grammar exhibits a shift/reduce conflict on rule:
 (on lookahead "%s" in state %d). Restructure your grammar or choose a conflict resolution mode.
 EOT;
 
-    /**
-     * @var Rule
-     */
     protected Rule $rule;
 
-    /**
-     * @var string
-     */
     protected string $lookahead;
 
     /**
      * Constructor.
      *
-     * @param Rule $rule The conflicting grammar rule.
-     * @param string $lookahead The conflicting lookahead to shift.
-     * @param Automaton $automaton The faulty automaton.
+     * @param  Rule  $rule  The conflicting grammar rule.
+     * @param  string  $lookahead  The conflicting lookahead to shift.
+     * @param  Automaton  $automaton  The faulty automaton.
      */
     public function __construct($state, Rule $rule, $lookahead, Automaton $automaton)
     {

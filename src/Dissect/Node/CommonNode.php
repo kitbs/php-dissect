@@ -13,13 +13,14 @@ use RuntimeException;
 class CommonNode implements Node
 {
     protected array $nodes;
+
     protected array $attributes;
 
     /**
      * Constructor.
      *
-     * @param array $attributes The attributes of this node.
-     * @param array $nodes The children of this node.
+     * @param  array  $attributes  The attributes of this node.
+     * @param  array  $nodes  The children of this node.
      */
     public function __construct(array $attributes = [], array $nodes = [])
     {
@@ -48,7 +49,7 @@ class CommonNode implements Node
      */
     public function getNode(int|string $name): Node
     {
-        if (!isset($this->nodes[$name])) {
+        if (! isset($this->nodes[$name])) {
             throw new RuntimeException(sprintf('No child node "%s" exists.', $name));
         }
 
@@ -92,7 +93,7 @@ class CommonNode implements Node
      */
     public function getAttribute(string $key): mixed
     {
-        if (!isset($this->attributes[$key])) {
+        if (! isset($this->attributes[$key])) {
             throw new RuntimeException(sprintf('No attribute "%s" exists.', $key));
         }
 

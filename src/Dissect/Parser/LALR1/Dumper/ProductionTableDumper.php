@@ -17,7 +17,7 @@ class ProductionTableDumper implements TableDumper
      */
     public function dump(array $table): string
     {
-        $writer = new StringWriter();
+        $writer = new StringWriter;
 
         $this->writeIntro($writer);
 
@@ -28,7 +28,7 @@ class ProductionTableDumper implements TableDumper
 
         $this->writeMiddle($writer);
 
-        foreach($table['goto'] as $num => $map) {
+        foreach ($table['goto'] as $num => $map) {
             $this->writeGoto($writer, $num, $map);
             $writer->write(',');
         }
@@ -47,7 +47,7 @@ class ProductionTableDumper implements TableDumper
 
     protected function writeState(StringWriter $writer, $num, $state)
     {
-        $writer->write($num . '=>[');
+        $writer->write($num.'=>[');
 
         foreach ($state as $trigger => $action) {
             $this->writeAction($writer, $trigger, $action);
@@ -73,7 +73,7 @@ class ProductionTableDumper implements TableDumper
 
     protected function writeGoto(StringWriter $writer, $num, $map)
     {
-        $writer->write($num . '=>[');
+        $writer->write($num.'=>[');
 
         foreach ($map as $trigger => $destination) {
             $writer->write(sprintf(

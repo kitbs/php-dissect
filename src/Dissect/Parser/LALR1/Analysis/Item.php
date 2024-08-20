@@ -30,31 +30,19 @@ use Dissect\Parser\Rule;
  */
 class Item
 {
-    /**
-     * @var Rule
-     */
     protected Rule $rule;
 
-    /**
-     * @var int
-     */
     protected int $dotIndex;
 
-    /**
-     * @var array
-     */
     protected array $lookahead = [];
 
-    /**
-     * @var array
-     */
     protected array $connected = [];
 
     /**
      * Constructor.
      *
-     * @param Rule $rule The rule of this item.
-     * @param int $dotIndex The index of the dot in this item.
+     * @param  Rule  $rule  The rule of this item.
+     * @param  int  $dotIndex  The index of the dot in this item.
      */
     public function __construct(Rule $rule, int $dotIndex)
     {
@@ -109,7 +97,7 @@ class Item
      * A -> a b c .
      * </pre>
      *
-     * @return boolean Whether this item is a reduce item.
+     * @return bool Whether this item is a reduce item.
      */
     public function isReduceItem(): bool
     {
@@ -119,7 +107,7 @@ class Item
     /**
      * Connects two items with a lookahead pumping channel.
      *
-     * @param Item $i The item.
+     * @param  Item  $i  The item.
      */
     public function connect(Item $i): void
     {
@@ -130,11 +118,11 @@ class Item
      * Pumps a lookahead token to this item and all items connected
      * to it.
      *
-     * @param string $lookahead The lookahead token name.
+     * @param  string  $lookahead  The lookahead token name.
      */
     public function pump(string $lookahead): void
     {
-        if (!in_array($lookahead, $this->lookahead)) {
+        if (! in_array($lookahead, $this->lookahead)) {
             $this->lookahead[] = $lookahead;
 
             foreach ($this->connected as $item) {
@@ -146,7 +134,7 @@ class Item
     /**
      * Pumps several lookahead tokens.
      *
-     * @param array $lookahead The lookahead tokens.
+     * @param  array  $lookahead  The lookahead tokens.
      */
     public function pumpAll(array $lookahead): void
     {

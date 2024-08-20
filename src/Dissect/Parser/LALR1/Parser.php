@@ -3,10 +3,10 @@
 namespace Dissect\Parser\LALR1;
 
 use Dissect\Lexer\TokenStream\TokenStream;
+use Dissect\Parser as P;
 use Dissect\Parser\Exception\UnexpectedTokenException;
 use Dissect\Parser\Grammar;
 use Dissect\Parser\LALR1\Analysis\Analyzer;
-use Dissect\Parser as P;
 
 /**
  * A LR parser.
@@ -15,30 +15,24 @@ use Dissect\Parser as P;
  */
 class Parser implements P\Parser
 {
-    /**
-     * @var Grammar
-     */
     protected Grammar $grammar;
 
-    /**
-     * @var array
-     */
     protected array $parseTable;
 
     /**
      * Constructor.
      *
-     * @param Grammar $grammar The grammar.
-     * @param array|null $parseTable If given, the parser doesn't have to analyze the grammar.
+     * @param  Grammar  $grammar  The grammar.
+     * @param  array|null  $parseTable  If given, the parser doesn't have to analyze the grammar.
      */
-    public function __construct(Grammar $grammar, array $parseTable = null)
+    public function __construct(Grammar $grammar, ?array $parseTable = null)
     {
         $this->grammar = $grammar;
 
         if ($parseTable) {
             $this->parseTable = $parseTable;
         } else {
-            $analyzer = new Analyzer();
+            $analyzer = new Analyzer;
             $this->parseTable = $analyzer->analyze($grammar)->getParseTable();
         }
     }
@@ -55,7 +49,7 @@ class Parser implements P\Parser
             while (true) {
                 $type = $token->getType();
 
-                if (!isset($this->parseTable['action'][$currentState][$type])) {
+                if (! isset($this->parseTable['action'][$currentState][$type])) {
                     // unexpected token
 
                     throw new UnexpectedTokenException(
@@ -92,8 +86,7 @@ class Parser implements P\Parser
                     }
 
                     $state = $stateStack[count($stateStack) - 1];
-                    $stateStack[] = $currentState = $this->parseTable['goto']
-                        [$state][$rule->getName()];
+                    $stateStack[] = $currentState = $this->parseTable['goto'][$state][$rule->getName()];
                 } else {
                     // accept
 

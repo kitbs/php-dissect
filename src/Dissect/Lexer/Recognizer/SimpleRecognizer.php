@@ -15,7 +15,7 @@ class SimpleRecognizer implements Recognizer
     /**
      * Constructor.
      *
-     * @param string $string The string to match by.
+     * @param  string  $string  The string to match by.
      */
     public function __construct(string $string)
     {

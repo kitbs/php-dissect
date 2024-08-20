@@ -12,13 +12,13 @@ class StatefulLexerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->lexer = new StatefulLexer();
+        $this->lexer = new StatefulLexer;
     }
 
     #[Test]
     public function addingNewTokenShouldThrowAnExceptionWhenNoStateIsBeingBuilt()
     {
-        $this->expectExceptionMessage("Define a lexer state first.");
+        $this->expectExceptionMessage('Define a lexer state first.');
         $this->expectException(LogicException::class);
         $this->lexer->regex('WORD', '/[a-z]+/');
     }

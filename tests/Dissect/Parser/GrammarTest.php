@@ -11,7 +11,7 @@ class GrammarTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->grammar = new ExampleGrammar();
+        $this->grammar = new ExampleGrammar;
     }
 
     #[Test]
@@ -32,7 +32,7 @@ class GrammarTest extends TestCase
         );
 
         $this->assertEquals(
-            array('Foo'),
+            ['Foo'],
             $this->grammar->getStartRule()->getComponents()
         );
     }

@@ -11,7 +11,7 @@ class SimpleLexerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->lexer = new SimpleLexer();
+        $this->lexer = new SimpleLexer;
 
         $this->lexer
             ->token('A', 'a')

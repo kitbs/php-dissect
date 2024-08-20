@@ -47,7 +47,7 @@ class ArithGrammar extends Grammar
 
             ->is('INT')
             ->call(function ($i) {
-                return (int)$i->getValue();
+                return (int) $i->getValue();
             });
 
         $this->operators('+', '-')->left()->prec(1);

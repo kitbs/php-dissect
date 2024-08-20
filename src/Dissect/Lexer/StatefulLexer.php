@@ -16,8 +16,11 @@ use LogicException;
 class StatefulLexer extends AbstractLexer
 {
     protected array $states = [];
+
     protected array $stateStack = [];
+
     protected ?string $stateBeingBuilt = null;
+
     protected ?string $typeBeingBuilt = null;
 
     /**
@@ -36,15 +39,14 @@ class StatefulLexer extends AbstractLexer
      * it assumes that the token type and recognized value are
      * identical.
      *
-     * @param string $type The token type.
-     * @param string|null $value The value to be recognized.
-     *
+     * @param  string  $type  The token type.
+     * @param  string|null  $value  The value to be recognized.
      * @return static This instance for fluent interface.
      */
-    public function token(string $type, string $value = null): static
+    public function token(string $type, ?string $value = null): static
     {
         if ($this->stateBeingBuilt === null) {
-            throw new LogicException("Define a lexer state first.");
+            throw new LogicException('Define a lexer state first.');
         }
 
         if ($value === null) {
@@ -64,15 +66,14 @@ class StatefulLexer extends AbstractLexer
     /**
      * Adds a new regex token definition.
      *
-     * @param string $type The token type.
-     * @param string $regex The regular expression used to match the token.
-     *
+     * @param  string  $type  The token type.
+     * @param  string  $regex  The regular expression used to match the token.
      * @return static This instance for fluent interface.
      */
     public function regex(string $type, string $regex): static
     {
         if ($this->stateBeingBuilt === null) {
-            throw new LogicException("Define a lexer state first.");
+            throw new LogicException('Define a lexer state first.');
         }
 
         $this->states[$this->stateBeingBuilt]['recognizers'][$type] =
@@ -88,14 +89,13 @@ class StatefulLexer extends AbstractLexer
     /**
      * Marks the token types given as arguments to be skipped.
      *
-     * @param mixed $types Unlimited number of token types.
-     *
+     * @param  mixed  $types  Unlimited number of token types.
      * @return static This instance for fluent interface.
      */
     public function skip(mixed ...$types): static
     {
         if ($this->stateBeingBuilt === null) {
-            throw new LogicException("Define a lexer state first.");
+            throw new LogicException('Define a lexer state first.');
         }
 
         $this->states[$this->stateBeingBuilt]['skip_tokens'] = $types;
@@ -106,8 +106,7 @@ class StatefulLexer extends AbstractLexer
     /**
      * Registers a new lexer state.
      *
-     * @param string $state The new state name.
-     *
+     * @param  string  $state  The new state name.
      * @return static This instance for fluent interface.
      */
     public function state(string $state): static
@@ -126,8 +125,7 @@ class StatefulLexer extends AbstractLexer
     /**
      * Sets the starting state for the lexer.
      *
-     * @param string $state The name of the starting state.
-     *
+     * @param  string  $state  The name of the starting state.
      * @return static This instance for fluent interface.
      */
     public function start(string $state): static
@@ -140,14 +138,13 @@ class StatefulLexer extends AbstractLexer
     /**
      * Sets an action for the token type that is currently being built.
      *
-     * @param mixed $action The action to take.
-     *
+     * @param  mixed  $action  The action to take.
      * @return static This instance for fluent interface.
      */
     public function action(mixed $action): static
     {
         if ($this->stateBeingBuilt === null || $this->typeBeingBuilt === null) {
-            throw new LogicException("Define a lexer state and type first.");
+            throw new LogicException('Define a lexer state and type first.');
         }
 
         $this->states[$this->stateBeingBuilt]['actions'][$this->typeBeingBuilt] = $action;
@@ -171,7 +168,7 @@ class StatefulLexer extends AbstractLexer
     protected function extractToken(string $string): ?Token
     {
         if (empty($this->stateStack)) {
-            throw new LogicException("You must set a starting state before lexing.");
+            throw new LogicException('You must set a starting state before lexing.');
         }
 
         $value = $type = $action = null;

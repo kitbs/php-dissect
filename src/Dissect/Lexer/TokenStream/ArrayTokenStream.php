@@ -18,15 +18,12 @@ class ArrayTokenStream implements TokenStream
      */
     protected array $tokens;
 
-    /**
-     * @var int
-     */
     protected int $position = 0;
 
     /**
      * Constructor.
      *
-     * @param Token[] $tokens The tokens in this stream.
+     * @param  Token[]  $tokens  The tokens in this stream.
      */
     public function __construct(array $tokens)
     {
@@ -78,7 +75,7 @@ class ArrayTokenStream implements TokenStream
      */
     public function move($n): void
     {
-        if (!isset($this->tokens[$n])) {
+        if (! isset($this->tokens[$n])) {
             throw new OutOfBoundsException('Invalid index to move to.');
         }
 
@@ -90,7 +87,7 @@ class ArrayTokenStream implements TokenStream
      */
     public function seek($n): void
     {
-        if (!isset($this->tokens[$this->position + $n])) {
+        if (! isset($this->tokens[$this->position + $n])) {
             throw new OutOfBoundsException('Invalid seek.');
         }
 
@@ -102,24 +99,18 @@ class ArrayTokenStream implements TokenStream
      */
     public function next(): void
     {
-        if (!isset($this->tokens[$this->position + 1])) {
+        if (! isset($this->tokens[$this->position + 1])) {
             throw new OutOfBoundsException('Attempting to move beyond the end of the stream.');
         }
 
         $this->position++;
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->tokens);
     }
 
-    /**
-     * @return ArrayIterator
-     */
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->tokens);

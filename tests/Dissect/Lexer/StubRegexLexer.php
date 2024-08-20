@@ -21,7 +21,7 @@ class StubRegexLexer extends RegexLexer
     protected function getType(string &$value): string
     {
         if (is_numeric($value)) {
-            $value = (int)$value;
+            $value = (int) $value;
 
             return 'INT';
         } elseif (in_array($value, $this->operators)) {

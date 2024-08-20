@@ -12,9 +12,9 @@ class CommonToken implements Token
     /**
      * Constructor.
      *
-     * @param mixed $type The type of the token.
-     * @param string $value The token value.
-     * @param int $line The line.
+     * @param  mixed  $type  The type of the token.
+     * @param  string  $value  The token value.
+     * @param  int  $line  The line.
      */
     public function __construct(
         protected mixed $type,

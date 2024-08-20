@@ -13,7 +13,7 @@ class AbstractLexerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->lexer = new StubLexer();
+        $this->lexer = new StubLexer;
     }
 
     #[Test]
@@ -40,7 +40,7 @@ class AbstractLexerTest extends TestCase
     #[Test]
     public function lexShouldAppendAnEofTokenAutomatically()
     {
-        $stream = $this->lexer->lex("abc");
+        $stream = $this->lexer->lex('abc');
         $stream->seek(3);
 
         $this->assertEquals(Parser::EOF_TOKEN_TYPE, $stream->getCurrentToken()->getType());
@@ -51,7 +51,7 @@ class AbstractLexerTest extends TestCase
     public function lexShouldThrowAnExceptionOnAnUnrecognizableToken()
     {
         try {
-            $this->lexer->lex("abcd");
+            $this->lexer->lex('abcd');
             $this->fail('Expected a RecognitionException.');
         } catch (RecognitionException $e) {
             $this->assertEquals(1, $e->getSourceLine());

@@ -9,12 +9,13 @@ use PHPUnit\Framework\TestCase;
 class ParserTest extends TestCase
 {
     protected ArithLexer $lexer;
+
     protected Parser $parser;
 
     protected function setUp(): void
     {
-        $this->lexer = new ArithLexer();
-        $this->parser = new Parser(new ArithGrammar());
+        $this->lexer = new ArithLexer;
+        $this->parser = new Parser(new ArithGrammar);
     }
 
     #[Test]
@@ -41,13 +42,13 @@ class ParserTest extends TestCase
             $this->fail('Expected an UnexpectedTokenException.');
         } catch (UnexpectedTokenException $e) {
             $this->assertEquals('INT', $e->getToken()->getType());
-            $this->assertEquals(array('$eof', '+', '-', '*', '/', '**', ')'), $e->getExpected());
-            $this->assertEquals(<<<EOT
+            $this->assertEquals(['$eof', '+', '-', '*', '/', '**', ')'], $e->getExpected());
+            $this->assertEquals(<<<'EOT'
 Unexpected 3 (INT) at line 1.
 
-Expected one of \$eof, +, -, *, /, **, ).
+Expected one of $eof, +, -, *, /, **, ).
 EOT
-            , $e->getMessage());
+                , $e->getMessage());
         }
     }
 }

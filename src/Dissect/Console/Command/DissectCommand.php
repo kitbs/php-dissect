@@ -2,18 +2,19 @@
 
 namespace Dissect\Console\Command;
 
-use Dissect\Parser\LALR1\Analysis\Exception\ConflictException;
+use Dissect\Parser\Grammar;
 use Dissect\Parser\LALR1\Analysis\Analyzer;
+use Dissect\Parser\LALR1\Analysis\Exception\ConflictException;
 use Dissect\Parser\LALR1\Dumper\AutomatonDumper;
 use Dissect\Parser\LALR1\Dumper\DebugTableDumper;
 use Dissect\Parser\LALR1\Dumper\ProductionTableDumper;
-use Dissect\Parser\Grammar;
+use ReflectionClass;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use ReflectionClass;
 
 class DissectCommand extends Command
 {
@@ -26,7 +27,7 @@ class DissectCommand extends Command
             ->addOption('dfa', 'D', InputOption::VALUE_NONE, 'Exports the LALR(1) DFA as a Graphviz graph.')
             ->addOption('state', 's', InputOption::VALUE_REQUIRED, 'Exports only the specified state instead of the entire DFA.')
             ->addOption('output-dir', 'o', InputOption::VALUE_REQUIRED, 'Overrides the default output directory.')
-            ->setHelp(<<<EOT
+            ->setHelp(<<<'EOT'
 Analyzes the given grammar and, if successful, exports the parse table to a PHP
 file.
 
@@ -59,12 +60,14 @@ EOT
             '/',
             '\\'
         );
+
+        /** @var FormatterHelper $formatter */
         $formatter = $this->getHelperSet()->get('formatter');
 
         $output->writeln('<info>Analyzing...</info>');
         $output->writeln('');
 
-        if (!class_exists($class)) {
+        if (! class_exists($class)) {
             /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             $output->writeln([
                 $formatter->formatBlock(
@@ -77,18 +80,18 @@ EOT
             return 1;
         }
 
-        $grammar = new $class();
+        $grammar = new $class;
 
         if ($dir = $input->getOption('output-dir')) {
             $cwd = rtrim(getcwd(), DIRECTORY_SEPARATOR);
 
-            $outputDir = $cwd . DIRECTORY_SEPARATOR . $dir;
+            $outputDir = $cwd.DIRECTORY_SEPARATOR.$dir;
         } else {
             $refl = new ReflectionClass($class);
             $outputDir = pathinfo($refl->getFileName(), PATHINFO_DIRNAME);
         }
 
-        $analyzer = new Analyzer();
+        $analyzer = new Analyzer;
 
         try {
             $result = $analyzer->analyze($grammar);
@@ -102,7 +105,7 @@ EOT
                 }
 
                 $output->writeln(sprintf(
-                    "<info><comment>%d</comment> conflicts in total",
+                    '<info><comment>%d</comment> conflicts in total',
                     count($conflicts)
                 ));
 
@@ -111,12 +114,12 @@ EOT
 
             $output->writeln('<info>Writing the parse table...</info>');
 
-            $fileName = $outputDir . DIRECTORY_SEPARATOR . 'parse_table.php';
+            $fileName = $outputDir.DIRECTORY_SEPARATOR.'parse_table.php';
 
             if ($input->getOption('debug')) {
                 $tableDumper = new DebugTableDumper($grammar);
             } else {
-                $tableDumper = new ProductionTableDumper();
+                $tableDumper = new ProductionTableDumper;
             }
 
             $code = $tableDumper->dump($table);
@@ -127,7 +130,7 @@ EOT
             } else {
                 $output->writeln('<info>Parse table written</info>');
             }
-        } catch(ConflictException $e) {
+        } catch (ConflictException $e) {
             /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             $output->writeln([
                 $formatter->formatBlock(
@@ -151,9 +154,9 @@ EOT
                 $dot = $automatonDumper->dump();
                 $file = 'automaton.dot';
             } else {
-                $state = (int)$input->getOption('state');
+                $state = (int) $input->getOption('state');
 
-                if (!$automaton->hasState($state)) {
+                if (! $automaton->hasState($state)) {
                     /** @noinspection PhpPossiblePolymorphicInvocationInspection */
                     $output->writeln([
                         $formatter->formatBlock(
@@ -175,7 +178,7 @@ EOT
                 $file = sprintf('state_%d.dot', $state);
             }
 
-            $fileName = $outputDir . DIRECTORY_SEPARATOR . $file;
+            $fileName = $outputDir.DIRECTORY_SEPARATOR.$file;
             $ret = @file_put_contents($fileName, $dot);
 
             if ($ret === false) {
@@ -195,7 +198,7 @@ EOT
             : 'reduce/reduce';
 
         return sprintf(
-            "<info>Resolved a <comment>%s</comment> conflict in state <comment>%d</comment> on lookahead <comment>%s</comment></info>",
+            '<info>Resolved a <comment>%s</comment> conflict in state <comment>%d</comment> on lookahead <comment>%s</comment></info>',
             $type,
             $conflict['state'],
             $conflict['lookahead']

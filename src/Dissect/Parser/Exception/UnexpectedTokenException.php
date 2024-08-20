@@ -12,15 +12,12 @@ use RuntimeException;
  */
 class UnexpectedTokenException extends RuntimeException
 {
-    const MESSAGE = <<<EOT
+    const MESSAGE = <<<'EOT'
 Unexpected %s at line %d.
 
 Expected one of %s.
 EOT;
 
-    /**
-     * @var Token
-     */
     protected Token $token;
 
     /**
@@ -31,8 +28,8 @@ EOT;
     /**
      * Constructor.
      *
-     * @param Token $token The unexpected token.
-     * @param string[] $expected The expected token types.
+     * @param  Token  $token  The unexpected token.
+     * @param  string[]  $expected  The expected token types.
      */
     public function __construct(Token $token, array $expected)
     {
@@ -40,7 +37,7 @@ EOT;
         $this->expected = $expected;
 
         if ($token->getValue() !== $token->getType()) {
-            $info = $token->getValue() . ' (' . $token->getType() . ')';
+            $info = $token->getValue().' ('.$token->getType().')';
         } else {
             $info = $token->getType();
         }

@@ -24,10 +24,9 @@ abstract class Util
     /**
      * Determines whether two sets have a difference.
      *
-     * @param array $first The first set.
-     * @param array $second The second set.
-     *
-     * @return boolean Whether there is a difference.
+     * @param  array  $first  The first set.
+     * @param  array  $second  The second set.
+     * @return bool Whether there is a difference.
      */
     public static function different(array $first, array $second): bool
     {
@@ -37,8 +36,7 @@ abstract class Util
     /**
      * Determines length of a UTF-8 string.
      *
-     * @param string $str The string in UTF-8 encoding.
-     *
+     * @param  string  $str  The string in UTF-8 encoding.
      * @return int The length.
      */
     public static function stringLength(string $str): int
@@ -49,13 +47,12 @@ abstract class Util
     /**
      * Extracts a substring of a UTF-8 string.
      *
-     * @param string $str The string to extract the substring from.
-     * @param int $position The position from which to start extracting.
-     * @param int|null $length The length of the substring.
-     *
+     * @param  string  $str  The string to extract the substring from.
+     * @param  int  $position  The position from which to start extracting.
+     * @param  int|null  $length  The length of the substring.
      * @return string The substring.
      */
-    public static function substring(string $str, int $position, int $length = null): string
+    public static function substring(string $str, int $position, ?int $length = null): string
     {
         static $lengthFunc = null;
 
