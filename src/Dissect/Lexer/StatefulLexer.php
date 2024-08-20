@@ -67,7 +67,7 @@ class StatefulLexer extends AbstractLexer
      * @param string $type The token type.
      * @param string $regex The regular expression used to match the token.
      *
-     * @return SimpleLexer This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
     public function regex(string $type, string $regex): static
     {

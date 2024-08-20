@@ -9,3 +9,6 @@ composer.lock
 # PhpUnit
 tests/coverage/
 .phpunit.result.cache
+
+# PHPStan
+build

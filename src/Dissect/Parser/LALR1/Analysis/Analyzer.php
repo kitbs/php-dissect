@@ -422,6 +422,7 @@ class Analyzer
                                     } else {
                                         // new rule was earlier
                                         $table['action'][$num][$token] = -$ruleNumber;
+                                        $resolvedRules = [$newRule, $originalRule];
 
                                         $conflicts[] = [
                                             'state' => $num,
@@ -429,7 +430,6 @@ class Analyzer
                                             'rules' => $resolvedRules,
                                             'resolution' => Grammar::EARLIER_REDUCE,
                                         ];
-                                        $resolvedRules = [$newRule, $originalRule];
 
                                     }
                                     continue;

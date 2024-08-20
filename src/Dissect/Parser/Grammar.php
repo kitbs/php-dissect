@@ -113,7 +113,7 @@ class Grammar
      *
      * @param string ...$components The components of the rule.
      *
-     * @return Grammar This instance.
+     * @return static This instance.
      */
     public function is(string ...$components): static
     {
@@ -142,7 +142,7 @@ class Grammar
      *
      * @param callable $callback The callback.
      *
-     * @return Grammar This instance.
+     * @return static This instance.
      */
     public function call(callable $callback): static
     {
@@ -253,7 +253,7 @@ class Grammar
      *
      * @param string ...$ops Any number of tokens that serve as the operators.
      *
-     * @return Grammar This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
     public function operators(string ...$ops): static
     {
@@ -274,7 +274,7 @@ class Grammar
     /**
      * Marks the current group of operators as left-associative.
      *
-     * @return Grammar This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
     public function left(): static
     {
@@ -284,7 +284,7 @@ class Grammar
     /**
      * Marks the current group of operators as right-associative.
      *
-     * @return Grammar This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
     public function right(): static
     {
@@ -294,7 +294,7 @@ class Grammar
     /**
      * Marks the current group of operators as nonassociative.
      *
-     * @return Grammar This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
     public function nonassoc(): static
     {
@@ -306,7 +306,7 @@ class Grammar
      *
      * @param int $a One of Grammar::LEFT, Grammar::RIGHT, Grammar::NONASSOC
      *
-     * @return Grammar This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
     public function assoc(int $a): static
     {
@@ -328,7 +328,7 @@ class Grammar
      *
      * @param int $i The precedence as an integer.
      *
-     * @return Grammar This instance for fluent interface.
+     * @return static This instance for fluent interface.
      */
     public function prec(int $i): static
     {

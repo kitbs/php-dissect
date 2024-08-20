@@ -106,8 +106,8 @@ class Rule
         return $this->precedence;
     }
 
-    public function setPrecedence($i): void
+    public function setPrecedence(int $precedence): void
     {
-        $this->precedence = $i;
+        $this->precedence = $precedence;
     }
 }
