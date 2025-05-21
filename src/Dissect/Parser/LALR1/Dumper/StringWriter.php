@@ -47,6 +47,10 @@ class StringWriter
     public function outdent(): void
     {
         $this->indent--;
+
+        if ($this->indent < 0) {
+            $this->indent = 0;
+        }
     }
 
     /**
